@@ -49,7 +49,7 @@ const putMovimientos = async (req, res) => {
             tipo,
             numeroFactura,
             fecha,
-            articulos: [{ id, cantidad, precio }],
+            articulos,
             valor,
             iva,
             total,
@@ -63,7 +63,7 @@ const putMovimientos = async (req, res) => {
                 tipo,
                 numeroFactura,
                 fecha,
-                articulos: [{ id, cantidad, precio }],
+                articulos,
                 valor,
                 iva,
                 total,
@@ -99,7 +99,7 @@ const getMovimientos = async (req, res) => {
 const getMovimiento = async (req, res) => {
     try {
         const { id } = req.params;
-        const movimiento = await movimientosModel.findById(id);
+        const movimiento = await movimientosModel.findById(id).populate("articulos.id");
         res.json({ movimiento });
     } catch (error) {
         res
