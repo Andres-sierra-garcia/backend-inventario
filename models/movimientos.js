@@ -6,7 +6,7 @@ const movimientosSchema = new mongoose.Schema({
     articulos:[{
         id:{type:mongoose.Schema.Types.ObjectId, required: true, ref:"articulos" },
         cantidad:{type:Number, required: true},
-        precio:{type:Number, required: true}
+        precio: { type:Number, required: true }
     }],
     valor:{type:Number, required: true}, 
     iva:{type:Number, required: true},
