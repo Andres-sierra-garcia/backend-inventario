@@ -24,7 +24,7 @@ const putArticulos = async (req, res) => {
     try {
         const { id } = req.params;
         const { nombre, precio, stock, imagen, categoria, estado } = req.body;
-        const Categoria = await categoriasModel.find({categoria})
+        const Categoria = await categoriasModel.findById(categoria)      
         const articulo = await ArticulosModel.findByIdAndUpdate(
             id,
             { nombre, precio, stock, imagen, categoria:Categoria._id, estado },
