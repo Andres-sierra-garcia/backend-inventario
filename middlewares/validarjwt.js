@@ -27,16 +27,19 @@ const validarJWT = async (req, res, next)=>{
     const token = req.header("x-token");
     if(!token){
         return res.status(401).json({
-            msg: "No hay token en la peticion"
+            token:token,
+            msg:"no esta llegando el token"
         })
     }
+
+
     try {
         const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
         let user = await usuariosModel.findById(uid)
         console.log(uid);
         if(!user){
             return res.status(401).json({
-                msg:"Token no valido - usuario no existe"
+                msg:"Token no validoo - usuario no existe" , token
             })
         }
         if(!user.estado){
@@ -48,7 +51,7 @@ const validarJWT = async (req, res, next)=>{
 
     } catch (error) {
         res.status(401).json({
-            msg:"Token no valido"
+            msg:"Token no valido" 
         })
     }
 }

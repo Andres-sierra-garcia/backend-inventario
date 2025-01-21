@@ -9,7 +9,7 @@ const postArticulos = async (req, res) => {
             precio,
             stock,
             imagen,
-            categoria, //lo que llega aqui es un id 
+            categoria, //lo que llega aqui es un id
             estado,
         });
         await articulos.save();
@@ -24,10 +24,10 @@ const putArticulos = async (req, res) => {
     try {
         const { id } = req.params;
         const { nombre, precio, stock, imagen, categoria, estado } = req.body;
-        const Categoria = await categoriasModel.find({nombre:categoria})      
+        const Categoria = await categoriasModel.find({ nombre: categoria });
         const articulo = await ArticulosModel.findByIdAndUpdate(
             id,
-            { nombre, precio, stock, imagen, categoria:Categoria._id, estado },
+            { nombre, precio, stock, imagen, categoria: Categoria._id, estado },
             { new: true }
         );
         res.json({ articulo });
@@ -48,6 +48,7 @@ const getArticulos = async (req, res) => {
             .status(400)
             .json({ error: "hubo un fallo al traer todos los articulos" });
         console.log(error);
+        
     }
 };
 
@@ -129,20 +130,18 @@ const getCategorias = async (req, res) => {
 
 const getArticuloStock = async (req, res) => {
     try {
-        const { cantidad } = req.params
-        const articulos = await ArticulosModel.find({ stock: { $lt: cantidad } })
-        if(articulos.length ==0){
-            res.json("no se encontraron articulos")
-        }
-        else{
-        res.json({ articulos })
-            
+        const { cantidad } = req.params;
+        const articulos = await ArticulosModel.find({ stock: { $lt: cantidad } });
+        if (articulos.length == 0) {
+            res.json("no se encontraron articulos");
+        } else {
+            res.json({ articulos });
         }
     } catch (error) {
-        res.status(400).json({ error: "error al realizar la operacion" })
+        res.status(400).json({ error: "error al realizar la operacion" });
         console.log(error);
     }
-}
+};
 
 export {
     postArticulos,
@@ -154,5 +153,5 @@ export {
     putActivar,
     putInactivar,
     getCategorias,
-    getArticuloStock
+    getArticuloStock,
 };
