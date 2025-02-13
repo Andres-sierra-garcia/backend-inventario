@@ -152,16 +152,16 @@ const getMovimientoTipo = async (req, res) => {
     try {
         const { tipo } = req.params;
         if (tipo == "entradas" || tipo == 1) {
-            const entradas = await movimientosModel.find({ tipo: 1 });
+            const entradas = await movimientosModel.find({ tipo: 1 }).populate("articulos.id");
             res.json({ entradas });
         } else if (tipo == "salidas" || tipo == 2) {
             const salidas = await movimientosModel.find({ tipo: 2 }).populate("articulos.id");
             res.json({ salidas });
         } else if (tipo == "devolucionEntrada" || tipo == 3) {
-            const devolucionesEntrada = await movimientosModel.find({ tipo: 3 });
+            const devolucionesEntrada = await movimientosModel.find({ tipo: 3 }).populate("articulos.id");
             res.json({ devolucionesEntrada });
         } else if (tipo == "devolucionSalida" || tipo == 4) {   
-            const devolucionesSalida = await movimientosModel.find({ tipo: 4 });
+            const devolucionesSalida = await movimientosModel.find({ tipo: 4 }).populate("articulos.id");
             res.json({ devolucionesSalida });
         }
     } catch (error) {
