@@ -1,3 +1,4 @@
+import categoriasModel from '../models/categorias.js'
 import Categorias from '../models/categorias.js'
 
 
@@ -70,14 +71,14 @@ const getCategoriasActivas_Inactivas = async (req, res)=>{
 
 const putActivarInactivar = async (req,res)=>{
   try {
-    const {accion}=req.params
     const {id}=req.params
-    if(accion == "activar"){
-        const categoria = await Categorias.findByIdAndUpdate(id,{estado:1},{new:true})
+    const categoria = await categoriasModel.findById(id)
+    if(categoria.estado == 1){
+        const categoria = await Categorias.findByIdAndUpdate(id,{estado:0},{new:true})
         res.json({categoria})
     }
-    else if(accion == "inactivar"){
-        const categoria = await Categorias.findByIdAndUpdate(id,{estado:0},{new:true})
+    else {
+        const categoria = await Categorias.findByIdAndUpdate(id,{estado:1},{new:true})
         res.json({categoria})
     }
   } catch (error) {

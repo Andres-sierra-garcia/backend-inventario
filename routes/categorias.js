@@ -52,7 +52,7 @@ router.get("/categorias/:Estado",[
 ], getCategoriasActivas_Inactivas);
 
 //activar o inactivar
-router.put("/:accion/:id",[
+router.put("/cambiarEstado/:id",[
     validarJWT,
     check("id","el id no es valido").isMongoId(),
     check("id","el id no existe").custom(helperCategorias.validarId),
